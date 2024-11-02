@@ -11,7 +11,11 @@
 #ifndef INC_CONV_LAYERS_H_
 #define INC_CONV_LAYERS_H_
 #include <stdbool.h>
+<<<<<<< HEAD
 #include <common_types.h>
+=======
+#include "./common_types.h"
+>>>>>>> 513f7ce (update benchmark)
 
 void RefConv2dF32(const float *input, const float *weight,
     const float *bias, const int in_c, const int in_h,

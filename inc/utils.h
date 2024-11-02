@@ -11,7 +11,11 @@
 #ifndef INC_UTILS_H_
 #define INC_UTILS_H_
 #include "common_types.h"
+<<<<<<< HEAD
 #include <cblas.h>
+=======
+#include "cblas.h"
+>>>>>>> 513f7ce (update benchmark)
 
 void PrintMat(char *name, const float *ptr, int H, int W, CBLAS_LAYOUT layout);
 void RandInitF32(float *p_data, int N);
