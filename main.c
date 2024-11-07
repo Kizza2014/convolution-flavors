@@ -521,7 +521,7 @@ void Test_VGG16(int block, int ordinal, int num_iterations, int method, char *sa
     
     for (int i = 0; i < num_iterations; i++) {
       gettimeofday(&start, NULL);
-      Kn2RowConvLayer(in_data, filters, bias, in_dim, filt_dim, stride, pad,
+      Kn2ColConvLayer(in_data, filters, bias, in_dim, filt_dim, stride, pad,
                       group, output);
       gettimeofday(&end, NULL);
       time_taken = (long long)end.tv_usec - (long long)start.tv_usec;
@@ -672,128 +672,129 @@ int main(void) {
   // TestIm2RowConvLayer();
 
   // initial run
-  // Test_VGG16(1, 2, 1000, 3, "vgg16_conv1_2_im2col.txt");
+  Test_VGG16(1, 2, 1000, 3, "vgg16_conv1_2_im2col.txt");
 
+// openblas_set_num_threads(32);
 
-  // // 4 cores
-  // // Conv 1_1
-  // Test_VGG16(1, 1, 1000, 1, "./time_execution_4_cores/vgg16_conv1_1_kn2row.txt");
-  // Test_VGG16(1, 1, 1000, 2, "./time_execution_4_cores/vgg16_conv1_1_kn2col.txt");
-  // Test_VGG16(1, 1, 1000, 3, "./time_execution_4_cores/vgg16_conv1_1_im2col.txt");
-  // Test_VGG16(1, 1, 1000, 4, "./time_execution_4_cores/vgg16_conv1_1_im2row.txt");  
+//   // // 4 cores
+//   // Conv 1_1
+//   // Test_VGG16(1, 1, 1000, 1, "./time_execution_avx512_cores/vgg16_conv1_1_kn2row.txt");
+//   Test_VGG16(1, 1, 1000, 2, "./time_execution_avx512_cores/vgg16_conv1_1_kn2col.txt");
+//   // Test_VGG16(1, 1, 1000, 3, "./time_execution_avx512_cores/vgg16_conv1_1_im2col.txt");
+//   // Test_VGG16(1, 1, 1000, 4, "./time_execution_avx512_cores/vgg16_conv1_1_im2row.txt");  
 
-  // // Conv 1_2
-  // Test_VGG16(1, 2, 1000, 1, "./time_execution_4_cores/vgg16_conv1_2_kn2row.txt");
-  // Test_VGG16(1, 2, 1000, 2, "./time_execution_4_cores/vgg16_conv1_2_kn2col.txt");
-  // Test_VGG16(1, 2, 1000, 3, "./time_execution_4_cores/vgg16_conv1_2_im2col.txt");
-  // Test_VGG16(1, 2, 1000, 4, "./time_execution_4_cores/vgg16_conv1_2_im2row.txt");
+//   // Conv 1_2
+//   // Test_VGG16(1, 2, 1000, 1, "./time_execution_avx512_cores/vgg16_conv1_2_kn2row.txt");
+//   Test_VGG16(1, 2, 1000, 2, "./time_execution_avx512_cores/vgg16_conv1_2_kn2col.txt");
+//   // Test_VGG16(1, 2, 1000, 3, "./time_execution_avx512_cores/vgg16_conv1_2_im2col.txt");
+//   // Test_VGG16(1, 2, 1000, 4, "./time_execution_avx512_cores/vgg16_conv1_2_im2row.txt");
 
-  // // Conv 2_1
-  // Test_VGG16(2, 1, 1000, 1, "./time_execution_4_cores/vgg16_conv2_1_kn2row.txt");
-  // Test_VGG16(2, 1, 1000, 2, "./time_execution_4_cores/vgg16_conv2_1_kn2col.txt");
-  // Test_VGG16(2, 1, 1000, 3, "./time_execution_4_cores/vgg16_conv2_1_im2col.txt");
-  // Test_VGG16(2, 1, 1000, 4, "./time_execution_4_cores/vgg16_conv2_1_im2row.txt");
+//   // Conv 2_1
+//   // Test_VGG16(2, 1, 1000, 1, "./time_execution_avx512_cores/vgg16_conv2_1_kn2row.txt");
+//   Test_VGG16(2, 1, 1000, 2, "./time_execution_avx512_cores/vgg16_conv2_1_kn2col.txt");
+//   // Test_VGG16(2, 1, 1000, 3, "./time_execution_avx512_cores/vgg16_conv2_1_im2col.txt");
+//   // Test_VGG16(2, 1, 1000, 4, "./time_execution_avx512_cores/vgg16_conv2_1_im2row.txt");
 
-  // // Conv 2_2
-  // Test_VGG16(2, 2, 1000, 1, "./time_execution_4_cores/vgg16_conv2_2_kn2row.txt");
-  // Test_VGG16(2, 2, 1000, 2, "./time_execution_4_cores/vgg16_conv2_2_kn2col.txt");
-  // Test_VGG16(2, 2, 1000, 3, "./time_execution_4_cores/vgg16_conv2_2_im2col.txt");
-  // Test_VGG16(2, 2, 1000, 4, "./time_execution_4_cores/vgg16_conv2_2_im2row.txt");
+//   // Conv 2_2
+//   // Test_VGG16(2, 2, 1000, 1, "./time_execution_avx512_cores/vgg16_conv2_2_kn2row.txt");
+//   Test_VGG16(2, 2, 1000, 2, "./time_execution_avx512_cores/vgg16_conv2_2_kn2col.txt");
+//   // Test_VGG16(2, 2, 1000, 3, "./time_execution_avx512_cores/vgg16_conv2_2_im2col.txt");
+//   // Test_VGG16(2, 2, 1000, 4, "./time_execution_avx512_cores/vgg16_conv2_2_im2row.txt");
 
-  // // Conv 3_1
-  // Test_VGG16(3, 1, 1000, 1, "./time_execution_4_cores/vgg16_conv3_1_kn2row.txt");
-  // Test_VGG16(3, 1, 1000, 2, "./time_execution_4_cores/vgg16_conv3_1_kn2col.txt");
-  // Test_VGG16(3, 1, 1000, 3, "./time_execution_4_cores/vgg16_conv3_1_im2col.txt");
-  // Test_VGG16(3, 1, 1000, 4, "./time_execution_4_cores/vgg16_conv3_1_im2row.txt");
+//   // Conv 3_1
+//   // Test_VGG16(3, 1, 1000, 1, "./time_execution_avx512_cores/vgg16_conv3_1_kn2row.txt");
+//   Test_VGG16(3, 1, 1000, 2, "./time_execution_avx512_cores/vgg16_conv3_1_kn2col.txt");
+//   // Test_VGG16(3, 1, 1000, 3, "./time_execution_avx512_cores/vgg16_conv3_1_im2col.txt");
+//   // Test_VGG16(3, 1, 1000, 4, "./time_execution_avx512_cores/vgg16_conv3_1_im2row.txt");
 
-  // // COnv 3_2
-  // Test_VGG16(3, 2, 1000, 1, "./time_execution_4_cores/vgg16_conv3_2_kn2row.txt");
-  // Test_VGG16(3, 2, 1000, 2, "./time_execution_4_cores/vgg16_conv3_2_kn2col.txt");
-  // Test_VGG16(3, 2, 1000, 3, "./time_execution_4_cores/vgg16_conv3_2_im2col.txt");
-  // Test_VGG16(3, 2, 1000, 4, "./time_execution_4_cores/vgg16_conv3_2_im2row.txt");
+//   // COnv 3_2
+//   // Test_VGG16(3, 2, 1000, 1, "./time_execution_avx512_cores/vgg16_conv3_2_kn2row.txt");
+//   Test_VGG16(3, 2, 1000, 2, "./time_execution_avx512_cores/vgg16_conv3_2_kn2col.txt");
+//   // Test_VGG16(3, 2, 1000, 3, "./time_execution_avx512_cores/vgg16_conv3_2_im2col.txt");
+//   // Test_VGG16(3, 2, 1000, 4, "./time_execution_avx512_cores/vgg16_conv3_2_im2row.txt");
 
-  // Conv 4_1
-  // Test_VGG16(4, 1, 1000, 1, "./time_execution_4_cores/vgg16_conv4_1_kn2row.txt");
-  // Test_VGG16(4, 1, 1000, 2, "./time_execution_4_cores/vgg16_conv4_1_kn2col.txt");
-  // Test_VGG16(4, 1, 1000, 3, "./time_execution_4_cores/vgg16_conv4_1_im2col.txt");
-  // Test_VGG16(4, 1, 1000, 4, "./time_execution_4_cores/vgg16_conv4_1_im2row.txt");
+//   // Conv 4_1
+//   // Test_VGG16(4, 1, 1000, 1, "./time_execution_avx512_cores/vgg16_conv4_1_kn2row.txt");
+//   Test_VGG16(4, 1, 1000, 2, "./time_execution_avx512_cores/vgg16_conv4_1_kn2col.txt");
+//   // Test_VGG16(4, 1, 1000, 3, "./time_execution_avx512_cores/vgg16_conv4_1_im2col.txt");
+//   // Test_VGG16(4, 1, 1000, 4, "./time_execution_avx512_cores/vgg16_conv4_1_im2row.txt");
 
-  // // Conv 4_2
-  // Test_VGG16(4, 2, 1000, 1, "./time_execution_4_cores/vgg16_conv4_2_kn2row.txt");
-  // Test_VGG16(4, 2, 1000, 2, "./time_execution_4_cores/vgg16_conv4_2_kn2col.txt");
-  // Test_VGG16(4, 2, 1000, 3, "./time_execution_4_cores/vgg16_conv4_2_im2col.txt");
-  // Test_VGG16(4, 2, 1000, 4, "./time_execution_4_cores/vgg16_conv4_2_im2row.txt");
+//   // Conv 4_2
+//   // Test_VGG16(4, 2, 1000, 1, "./time_execution_avx512_cores/vgg16_conv4_2_kn2row.txt");
+//   Test_VGG16(4, 2, 1000, 2, "./time_execution_avx512_cores/vgg16_conv4_2_kn2col.txt");
+//   // Test_VGG16(4, 2, 1000, 3, "./time_execution_avx512_cores/vgg16_conv4_2_im2col.txt");
+//   // Test_VGG16(4, 2, 1000, 4, "./time_execution_avx512_cores/vgg16_conv4_2_im2row.txt");
 
-  // // Conv 5_1
-  // Test_VGG16(5, 1, 1000, 1, "./time_execution_4_cores/vgg16_conv5_1_kn2row.txt");
-  // Test_VGG16(5, 1, 1000, 2, "./time_execution_4_cores/vgg16_conv5_1_kn2col.txt");
-  // Test_VGG16(5, 1, 1000, 3, "./time_execution_4_cores/vgg16_conv5_1_im2col.txt");
-  // Test_VGG16(5, 1, 1000, 4, "./time_execution_4_cores/vgg16_conv5_1_im2row.txt");
+//   // Conv 5_1
+//   // Test_VGG16(5, 1, 1000, 1, "./time_execution_avx512_cores/vgg16_conv5_1_kn2row.txt");
+//   Test_VGG16(5, 1, 1000, 2, "./time_execution_32_cores/vgg16_conv5_1_kn2col.txt");
+//   // Test_VGG16(5, 1, 1000, 3, "./time_execution_avx512_cores/vgg16_conv5_1_im2col.txt");
+//   // Test_VGG16(5, 1, 1000, 4, "./time_execution_avx512_cores/vgg16_conv5_1_im2row.txt");
 
-  // // Conv 5_2
-  // Test_VGG16(5, 2, 1000, 1, "./time_execution_4_cores/vgg16_conv5_2_kn2row.txt");
-  // Test_VGG16(5, 2, 1000, 2, "./time_execution_4_cores/vgg16_conv5_2_kn2col.txt");
-  // Test_VGG16(5, 2, 1000, 3, "./time_execution_4_cores/vgg16_conv5_2_im2col.txt");
-  // Test_VGG16(5, 2, 1000, 4, "./time_execution_4_cores/vgg16_conv5_2_im2row.txt");
+//   // // Conv 5_2
+//   // Test_VGG16(5, 2, 1000, 1, "./time_execution_avx512_cores/vgg16_conv5_2_kn2row.txt");
+//   Test_VGG16(5, 2, 1000, 2, "./time_execution_32_cores/vgg16_conv5_2_kn2col.txt");
+//   // Test_VGG16(5, 2, 1000, 3, "./time_execution_avx512_cores/vgg16_conv5_2_im2col.txt");
+//   // Test_VGG16(5, 2, 1000, 4, "./time_execution_avx512_cores/vgg16_conv5_2_im2row.txt");
 
   // // 32 cores
   // // Conv 1_1
   // Test_VGG16(1, 1, 1000, 1, "./time_execution_32_cores/vgg16_conv1_1_kn2row.txt");
-  // Test_VGG16(1, 1, 1000, 2, "./time_execution_32_cores/vgg16_conv1_1_kn2col.txt");
+  Test_VGG16(1, 1, 1000, 2, "./time_execution_32_cores/vgg16_conv1_1_kn2col.txt");
   // Test_VGG16(1, 1, 1000, 3, "./time_execution_32_cores/vgg16_conv1_1_im2col.txt");
   // Test_VGG16(1, 1, 1000, 4, "./time_execution_32_cores/vgg16_conv1_1_im2row.txt");  
 
   // // Conv 1_2
   // Test_VGG16(1, 2, 1000, 1, "./time_execution_32_cores/vgg16_conv1_2_kn2row.txt");
-  // Test_VGG16(1, 2, 1000, 2, "./time_execution_32_cores/vgg16_conv1_2_kn2col.txt");
+  Test_VGG16(1, 2, 1000, 2, "./time_execution_32_cores/vgg16_conv1_2_kn2col.txt");
   // Test_VGG16(1, 2, 1000, 3, "./time_execution_32_cores/vgg16_conv1_2_im2col.txt");
   // Test_VGG16(1, 2, 1000, 4, "./time_execution_32_cores/vgg16_conv1_2_im2row.txt");
 
   // // Conv 2_1
   // Test_VGG16(2, 1, 1000, 1, "./time_execution_32_cores/vgg16_conv2_1_kn2row.txt");
-  // Test_VGG16(2, 1, 1000, 2, "./time_execution_32_cores/vgg16_conv2_1_kn2col.txt");
+  Test_VGG16(2, 1, 1000, 2, "./time_execution_32_cores/vgg16_conv2_1_kn2col.txt");
   // Test_VGG16(2, 1, 1000, 3, "./time_execution_32_cores/vgg16_conv2_1_im2col.txt");
   // Test_VGG16(2, 1, 1000, 4, "./time_execution_32_cores/vgg16_conv2_1_im2row.txt");
 
   // // Conv 2_2
   // Test_VGG16(2, 2, 1000, 1, "./time_execution_32_cores/vgg16_conv2_2_kn2row.txt");
-  // Test_VGG16(2, 2, 1000, 2, "./time_execution_32_cores/vgg16_conv2_2_kn2col.txt");
+  Test_VGG16(2, 2, 1000, 2, "./time_execution_32_cores/vgg16_conv2_2_kn2col.txt");
   // Test_VGG16(2, 2, 1000, 3, "./time_execution_32_cores/vgg16_conv2_2_im2col.txt");
   // Test_VGG16(2, 2, 1000, 4, "./time_execution_32_cores/vgg16_conv2_2_im2row.txt");
 
   // // Conv 3_1
   // Test_VGG16(3, 1, 1000, 1, "./time_execution_32_cores/vgg16_conv3_1_kn2row.txt");
-  // Test_VGG16(3, 1, 1000, 2, "./time_execution_32_cores/vgg16_conv3_1_kn2col.txt");
+  Test_VGG16(3, 1, 1000, 2, "./time_execution_32_cores/vgg16_conv3_1_kn2col.txt");
   // Test_VGG16(3, 1, 1000, 3, "./time_execution_32_cores/vgg16_conv3_1_im2col.txt");
   // Test_VGG16(3, 1, 1000, 4, "./time_execution_32_cores/vgg16_conv3_1_im2row.txt");
 
   // // Conv 3_2
   // Test_VGG16(3, 2, 1000, 1, "./time_execution_32_cores/vgg16_conv3_2_kn2row.txt");
-  // Test_VGG16(3, 2, 1000, 2, "./time_execution_32_cores/vgg16_conv3_2_kn2col.txt");
+  Test_VGG16(3, 2, 1000, 2, "./time_execution_32_cores/vgg16_conv3_2_kn2col.txt");
   // Test_VGG16(3, 2, 1000, 3, "./time_execution_32_cores/vgg16_conv3_2_im2col.txt");
   // Test_VGG16(3, 2, 1000, 4, "./time_execution_32_cores/vgg16_conv3_2_im2row.txt");
 
   // //Conv 4_1
   // Test_VGG16(4, 1, 1000, 1, "./time_execution_32_cores/vgg16_conv4_1_kn2row.txt");
-  // Test_VGG16(4, 1, 1000, 2, "./time_execution_32_cores/vgg16_conv4_1_kn2col.txt");
+  Test_VGG16(4, 1, 1000, 2, "./time_execution_32_cores/vgg16_conv4_1_kn2col.txt");
   // Test_VGG16(4, 1, 1000, 3, "./time_execution_32_cores/vgg16_conv4_1_im2col.txt");
   // Test_VGG16(4, 1, 1000, 4, "./time_execution_32_cores/vgg16_conv4_1_im2row.txt");
 
   // // Conv 4_2
   // Test_VGG16(4, 2, 1000, 1, "./time_execution_32_cores/vgg16_conv4_2_kn2row.txt");
-  // Test_VGG16(4, 2, 1000, 2, "./time_execution_32_cores/vgg16_conv4_2_kn2col.txt");
+  Test_VGG16(4, 2, 1000, 2, "./time_execution_32_cores/vgg16_conv4_2_kn2col.txt");
   // Test_VGG16(4, 2, 1000, 3, "./time_execution_32_cores/vgg16_conv4_2_im2col.txt");
   // Test_VGG16(4, 2, 1000, 4, "./time_execution_32_cores/vgg16_conv4_2_im2row.txt");
 
   // // Conv 5_1
   // Test_VGG16(5, 1, 1000, 1, "./time_execution_32_cores/vgg16_conv5_1_kn2row.txt");
-  // Test_VGG16(5, 1, 1000, 2, "./time_execution_32_cores/vgg16_conv5_1_kn2col.txt");
+  Test_VGG16(5, 1, 1000, 2, "./time_execution_32_cores/vgg16_conv5_1_kn2col.txt");
   // Test_VGG16(5, 1, 1000, 3, "./time_execution_32_cores/vgg16_conv5_1_im2col.txt");
   // Test_VGG16(5, 1, 1000, 4, "./time_execution_32_cores/vgg16_conv5_1_im2row.txt");
 
   // // Conv 5_2
   // Test_VGG16(5, 2, 1000, 1, "./time_execution_32_cores/vgg16_conv5_2_kn2row.txt");
-  // Test_VGG16(5, 2, 1000, 2, "./time_execution_32_cores/vgg16_conv5_2_kn2col.txt");
+  Test_VGG16(5, 2, 1000, 2, "./time_execution_32_cores/vgg16_conv5_2_kn2col.txt");
   // Test_VGG16(5, 2, 1000, 3, "./time_execution_32_cores/vgg16_conv5_2_im2col.txt");
   // Test_VGG16(5, 2, 1000, 4, "./time_execution_32_cores/vgg16_conv5_2_im2row.txt");
 
